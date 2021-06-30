@@ -26,7 +26,6 @@ namespace AngularCRUD.Controllers.api
                                 studentID = s.studentID,
                                 firstName = s.firstName,
                                 lastName = s.lastName,
-                                gender = s.gender,
                                 dateOfbirth = s.dateOfbirth,
                                 Standard = s.Standard == null ? null : new StandardsModel()
                                 {
@@ -56,7 +55,6 @@ namespace AngularCRUD.Controllers.api
                     studentID = s.studentID,
                     firstName = s.firstName,
                     lastName = s.lastName,
-                    gender = s.gender,
                     dateOfbirth = s.dateOfbirth,
                     Standard = s.Standard == null ? null : new StandardsModel()
                     {
@@ -86,7 +84,6 @@ namespace AngularCRUD.Controllers.api
                     studentID = s.studentID,
                     firstName = s.firstName,
                     lastName = s.lastName,
-                    gender = s.gender,
                     dateOfbirth = s.dateOfbirth,
                     Standard = s.Standard == null ? null : new StandardsModel()
                     {
@@ -119,7 +116,6 @@ namespace AngularCRUD.Controllers.api
                     studentID = students.studentID,
                     firstName = students.firstName,
                     lastName = students.lastName,
-                    gender = students.gender,
                     dateOfbirth = students.dateOfbirth,
                     standardID = students.standardID,
 
@@ -146,7 +142,6 @@ namespace AngularCRUD.Controllers.api
                 {
                     existingStudent.firstName = students.firstName;
                     existingStudent.lastName = students.lastName;
-                    existingStudent.gender = students.gender;
                     existingStudent.dateOfbirth = students.dateOfbirth;
                     existingStudent.standardID = students.Standard.standardID;
 
