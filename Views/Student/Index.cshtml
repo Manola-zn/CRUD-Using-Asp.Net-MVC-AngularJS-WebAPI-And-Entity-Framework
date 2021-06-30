@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<html>
+<head>
+    <!--DataTables-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <link href="~/Plugin/datatables/media/css/jquery.datatables.min.css" rel="stylesheet" />
+    <script src="~/Plugin/datatables/media/js/jquery.datatables.js"></script>
+    <script src="~/Plugin/angular-datatables/dist/angular-datatables.js"></script>
+
+    <!--AngularJSCode-->
+    <script src="~/Scripts/AngularCode.js"></script>
+
+
+    <style>
+        .table-bordered tbody tr:nth-child(odd) td {
+            background-color: white;
+        }
+
+        .table-bordered tbody tr:nth-child(even) td {
+            background-color: #CEECF5;
+        }
+
+        .table-bordered tbody tr.highlight td {
+            background-color: #F2F5A9;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div>
+        <form data-ng-app="myApp" data-ng-controller="StudentController" ng-submit="InsertData()" data-ng-init="GetAllData()" name="myForm" novalidate>
+            <br />
+            <br />
+            <div class="container">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">List of Students</div>
+                    <div class="panel-body">
+                        <table id="tblStudents" datatable="ng" class="table-responsive table-bordered table-striped" style="width:100%" cellspacing="12">
+                            <thead style="background-color:#428bca;color:white">
+                                <tr>
+                                    <td>
+                                        <b>ID</b>
+                                    </td>
+                                    <td>
+                                        <b>First Name</b>
+                                    </td>
+                                    <td>
+                                        <b>Last Name</b>
+                                    </td>
+                                    <td>
+                                        <b>Date of Birth</b>
+                                    </td>
+                                    <td>
+                                        <b>Standard</b>
+                                    </td>
+                                    <td>
+                                        <span class="fa fa-edit"></span>
+                                    </td>
+                                    <td>
+                                        <span class="fa fa-trash"></span>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="student in Students">
+                                    <td>
+                                        {{student.studentID}}
+                                    </td>
+                                    <td>
+                                        {{student.firstName}}
+                                    </td>
+                                    <td>
+                                        {{student.lastName}}
+                                    </td>
+                                    <td>
+                                        {{student.dateOfbirth}}
+                                    </td>
+                                    <td>
+                                        {{student.standardName}}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" ng-click="UpdateStud(student)">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                            Update
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning" type="button" ng-click="DeleteStud(student)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Student Entry Screen</div>
+                    <div class="panel-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">First Name:</label>
+                                            <div class="col-md-8">
+                                                <input type="text" name="firstName" placeholder="First Name" data-ng-model="firstName" data-ng-required="true">
+                                                <br />
+                                                <span ng-show="myForm.$submitted || myForm.firstName.$touched">
+                                                    <span style="color:red" ng-show="myForm.firstName.$error.required">First Name Required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Last Name:</label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="inputlastName" required placeholder="Last Name" name="lastName" data-ng-model="lastName">
+                                                <br />
+                                                <span ng-show="myForm.$submitted || myForm.lastName.$touched">
+                                                    <span style="color:red" ng-show="myForm.lastName.$error.required">Last Name Required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Date Birth:</label>
+                                            <div class="col-md-8">
+                                                <input type="text" id="inputdateOfbirth" required placeholder="Date Birth" name="dateOfbirth" data-ng-model="dateOfbirth">
+                                                <br />
+                                                <span ng-show="myForm.$submitted || myForm.dateOfbirth.$touched">
+                                                    <span style="color:red" ng-show="myForm.dateOfbirth.$error.required">Date Birth Required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Standard:</label>
+                                            <div class="col-md-8">
+                                                <select data-ng-model="Standard" data-ng-show="UpdateStud" data-ng-options="standard.standardID as standard.standardName for standard in Standards">
+                                                    <option value="">Please Select</option>
+                                                </select>
+                                                <br />
+                                                <span ng-show="myForm.$submitted || myForm.Standard.$touched">
+                                                    <span style="color:red" ng-show="myForm.Standard.$error.required">Standard Required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4">
+                                        <div class="form-group">
+                                            <div class="col-md-4 control-label"></div>
+                                            <div class="col-md-6">
+                                                <input type="submit" value="Submit" id="btnSave" class="btn btn-success" data-ng-disabled=" myForm.firstName.$invalid ||myForm.lastName.$invalid ||myForm.dateOfbirth.$invalid ||myForm.Standard.$invalid " />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @Html.Hidden("studentID_")
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+ 
+    </body>
+</html>
