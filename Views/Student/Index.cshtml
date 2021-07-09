@@ -1,18 +1,35 @@
-﻿@{
+@{
     ViewBag.Title = "Index";
 }
 <html>
 <head>
+
     <!--DataTables-->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/angular.js"></script>
+
+    <script src="~/Plugin/angular/angular.js"></script>
     <link href="~/Plugin/datatables/media/css/jquery.datatables.min.css" rel="stylesheet" />
     <script src="~/Plugin/datatables/media/js/jquery.datatables.js"></script>
     <script src="~/Plugin/angular-datatables/dist/angular-datatables.js"></script>
+
+    <!--Datepicker-->
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker3.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+
+    <!--SweetAlert-->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
     <!--AngularJSCode-->
     <script src="~/Scripts/AngularCode.js"></script>
@@ -41,10 +58,10 @@
             <br />
             <div class="container">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">List of Students</div>
+                    <div class="panel-heading"><b>List of Students</b></div>
                     <div class="panel-body">
                         <table id="tblStudents" datatable="ng" class="table-responsive table-bordered table-striped" style="width:100%" cellspacing="12">
-                            <thead style="background-color:#428bca;color:white">
+                            <thead style="background-color:#428bca;color:white; text-align:center">
                                 <tr>
                                     <td>
                                         <b>ID</b>
@@ -54,6 +71,9 @@
                                     </td>
                                     <td>
                                         <b>Last Name</b>
+                                    </td>
+                                    <td>
+                                        <b>Gender</b>
                                     </td>
                                     <td>
                                         <b>Date of Birth</b>
@@ -81,6 +101,9 @@
                                         {{student.lastName}}
                                     </td>
                                     <td>
+                                        {{student.gender}}
+                                    </td>
+                                    <td>
                                         {{student.dateOfbirth}}
                                     </td>
                                     <td>
@@ -106,7 +129,7 @@
             </div>
             <div class="container">
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Student Entry Screen</div>
+                    <div class="panel-heading"><span id="spn"><b>Add New Employee</b></span></div>
                     <div class="panel-body">
                         <div class="form-horizontal" role="form">
                             <div class="container">
@@ -115,44 +138,29 @@
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">First Name:</label>
                                             <div class="col-md-8">
-                                                <input type="text" name="firstName" placeholder="First Name" data-ng-model="firstName" data-ng-required="true">
+                                                <input type="text" class="form-control" name="firstName" placeholder="First Name" data-ng-model="firstName" data-ng-required="true">
                                                 <br />
                                                 <span ng-show="myForm.$submitted || myForm.firstName.$touched">
                                                     <span style="color:red" ng-show="myForm.firstName.$error.required">First Name Required</span>
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label">Last Name:</label>
+                                            <label class="col-md-4 control-label">Gender:</label>
                                             <div class="col-md-8">
-                                                <input type="text" id="inputlastName" required placeholder="Last Name" name="lastName" data-ng-model="lastName">
+                                                <input type="radio" id="inputgender" data-ng-model="gender" name="gender" value="Male" data-ng-required="true"/> Male<br />
+                                                <input type="radio" id="inputgender" data-ng-model="gender" name="gender" value="Female" data-ng-required="true" /> Female<br />
                                                 <br />
-                                                <span ng-show="myForm.$submitted || myForm.lastName.$touched">
-                                                    <span style="color:red" ng-show="myForm.lastName.$error.required">Last Name Required</span>
+                                                <span ng-show="myForm.$submitted || myForm.gender.$touched">
+                                                    <span style="color:red" ng-show="myForm.gender.$error.required">Gender Required</span>
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Date Birth:</label>
-                                            <div class="col-md-8">
-                                                <input type="text" id="inputdateOfbirth" required placeholder="Date Birth" name="dateOfbirth" data-ng-model="dateOfbirth">
-                                                <br />
-                                                <span ng-show="myForm.$submitted || myForm.dateOfbirth.$touched">
-                                                    <span style="color:red" ng-show="myForm.dateOfbirth.$error.required">Date Birth Required</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Standard:</label>
                                             <div class="col-md-8">
-                                                <select data-ng-model="Standard" data-ng-show="UpdateStud" data-ng-options="standard.standardID as standard.standardName for standard in Standards">
-                                                    <option value="">Please Select</option>
+                                                <select class="form-control" data-ng-model="Standard" name="Standard" data-ng-show="UpdateStud" data-ng-options="standard.standardID as standard.standardName for standard in Standards" data-ng-required="true">
+                                                    <option value="">Please Select Standard</option>
                                                 </select>
                                                 <br />
                                                 <span ng-show="myForm.$submitted || myForm.Standard.$touched">
@@ -161,16 +169,38 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-sm-6 col-lg-4">
                                         <div class="form-group">
-                                            <div class="col-md-4 control-label"></div>
-                                            <div class="col-md-6">
-                                                <input type="submit" value="Submit" id="btnSave" class="btn btn-success" data-ng-disabled=" myForm.firstName.$invalid ||myForm.lastName.$invalid ||myForm.dateOfbirth.$invalid ||myForm.Standard.$invalid " />
+                                            <label class="col-md-4 control-label">Last Name:</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="inputlastName" required placeholder="Last Name" name="lastName" data-ng-model="lastName" data-ng-required="true">
+                                                <br />
+                                                <span ng-show="myForm.$submitted || myForm.lastName.$touched">
+                                                    <span style="color:red" ng-show="myForm.lastName.$error.required">Last Name Required</span>
+                                                </span>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Date Birth:</label>
+                                            <div class="col-md-8">
+                                                <div class="input-group date" data-provide="datepicker" my-date-picker>
+                                                    <input type="text" class="form-control" id="dateOfbirth" data-ng-model="dateOfbirth" required placeholder="Date Of Birth" name="dateOfbirth" value="dateOfbirth">
+                                                    <div class="input-group-addon">
+                                                        <span class="fa fa-calendar"></span>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <span ng-show="myForm.$submitted || myForm.dateOfbirth.$touched">
+                                                    <span style="color:red" ng-show="myForm.dateOfbirth.$error.required">Date Of Birth Required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:85px">
+                                                <input type="submit" value="Submit" id="btnSave" class="btn btn-success" data-ng-disabled=" myForm.firstName.$invalid ||myForm.lastName.$invalid ||myForm.gender.$invalid ||myForm.dateOfbirth.$invalid ||myForm.Standard.$invalid " />
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -180,8 +210,6 @@
                 </div>
             </div>
         </form>
-
     </div>
- 
-    </body>
+</body>
 </html>
