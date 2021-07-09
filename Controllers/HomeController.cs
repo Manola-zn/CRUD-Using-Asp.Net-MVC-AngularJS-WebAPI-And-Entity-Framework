@@ -26,5 +26,10 @@ namespace AngularCRUD.Controllers
 
             return View();
         }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }
